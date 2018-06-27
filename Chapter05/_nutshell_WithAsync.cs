@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Chapter05
 {
-    [Description("_1.0")]
-    class _nutshell_WithoutAsync
+    [Description("_1.4")]
+    class _nutshell_WithAsync
     {
         private static void Main()
         {
@@ -15,15 +15,12 @@ namespace Chapter05
             Console.ReadLine();
         }
 
-        public static void DisplayPrimeCounts()
+        public static async Task DisplayPrimeCounts()
         {
             for (int i = 0; i < 10; i++)
-            {
-                var awaiter = GetPrimesCountAsync(i * 1000000 + 2, 1000000).GetAwaiter();
-                awaiter.OnCompleted(() => Console.WriteLine(awaiter.GetResult() + " primes between... "));
-            }
-
-            Console.WriteLine("Done");
+                Console.WriteLine(await GetPrimesCountAsync(i * 1000000 + 2, 1000000) +
+                " primes between " + (i * 1000000) + " and " + ((i + 1) * 1000000 - 1));
+            Console.WriteLine("Done!");
         }
 
         public static Task<int> GetPrimesCountAsync(int start, int count)
